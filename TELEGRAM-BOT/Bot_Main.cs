@@ -148,7 +148,7 @@ class Bot_Main
                     case "/audio":
                         await botClient.SendTextMessageAsync(
                             chatId: message.Chat.Id,
-                            text: "Sending a video...",
+                            text: "Sending a audio...",
                             cancellationToken: cancellationToken
                         );
                         SendAudio(botClient, message.Chat.Id, cancellationToken);
@@ -164,7 +164,7 @@ class Bot_Main
                     case "/document":
                         await botClient.SendTextMessageAsync(
                             chatId: message.Chat.Id,
-                            text: "Sending a video...",
+                            text: "Sending a document...",
                             cancellationToken: cancellationToken
                         );
                         SendDocument(botClient, message.Chat.Id, cancellationToken);
@@ -306,25 +306,66 @@ class Bot_Main
             await System.IO.File.WriteAllBytesAsync(tempFileName, audioBytes);
         }
 
-        //await botClient.SendAudioAsync(
-        //    chatId:chatId,
-        //    audio:/*Audio*/,
-        //   cancellationToken: cancellationToken);
+        using (var fileStream = System.IO.File.OpenRead(tempFileName))
+        {
+            var inputFile = new InputFileStream(fileStream);
+            await botClient.SendAudioAsync(
+                chatId: chatId,
+                audio: inputFile,
+                cancellationToken: cancellationToken
+            );
+        }
+
+        System.IO.File.Delete(tempFileName);
     }
 
     static async Task SendVideo(ITelegramBotClient botClient, long chatId, CancellationToken cancellationToken)
     {
-        //  await botClient.SendVideoAsync(
-        //chatId: chatId,
-        //video: "https://telegrambots.github.io/book/docs/video-countdown.mp4",
-        //cancellationToken: cancellationToken);
+        var videoURL = "https://telegrambots.github.io/book/docs/video-countdown.mp4";
+
+        var tempFileName = Path.GetTempFileName();
+
+        using (var httpClient = new HttpClient())
+        {
+            var videoBytes = await httpClient.GetByteArrayAsync(videoURL);
+            await System.IO.File.WriteAllBytesAsync(tempFileName, videoBytes);
+        }
+
+        using (var fileStream = System.IO.File.OpenRead(tempFileName))
+        {
+            var inputFile = new InputFileStream(fileStream);
+            await botClient.SendVideoAsync(
+                chatId: chatId,
+                video: inputFile,
+                cancellationToken: cancellationToken
+            );
+        }
+
+        System.IO.File.Delete(tempFileName);
     }
 
     static async Task SendDocument(ITelegramBotClient botClient, long chatId, CancellationToken cancellationToken)
     {
-        //    await botClient.SendDocumentAsync(
-        //chatId: chatId,
-        //document: "https://telegrambots.github.io/book/docs/photo-ara.jpg",
-        //cancellationToken: cancellationToken);
+        var documentURL = "https://telegrambots.github.io/book/docs/photo-ara.jpg";
+
+        var tempFileName = Path.GetTempFileName();
+
+        using (var httpClient = new HttpClient())
+        {
+            var documentBytes = await httpClient.GetByteArrayAsync(documentURL);
+            await System.IO.File.WriteAllBytesAsync(tempFileName, documentBytes);
+        }
+
+        using (var fileStream = System.IO.File.OpenRead(tempFileName))
+        {
+            var inputFile = new InputFileStream(fileStream);
+            await botClient.SendVideoAsync(
+                chatId: chatId,
+                video: inputFile,
+                cancellationToken: cancellationToken
+            );
+        }
+
+        System.IO.File.Delete(tempFileName);
     }
 }
