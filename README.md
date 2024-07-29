@@ -56,7 +56,4 @@ Additional notes on how to deploy this on a live or release system. Explaining t
 
 ## Additional Documentation and Acknowledgments
 
-* Project folder on server:
-* Confluence link:
-* Asana board:
-* etc...
+* [Telegram.Bot](https://github.com/TelegramBots/Telegram.Bot)
