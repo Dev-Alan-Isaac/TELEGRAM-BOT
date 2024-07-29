@@ -341,7 +341,7 @@ class Bot_Main
 
         System.IO.File.Delete(tempFileName);
     }
-
+     
     static async Task SendDocument(ITelegramBotClient botClient, long chatId, CancellationToken cancellationToken)
     {
         var documentURL = "https://telegrambots.github.io/book/docs/photo-ara.jpg";
