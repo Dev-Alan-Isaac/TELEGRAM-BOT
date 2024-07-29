@@ -1,10 +1,8 @@
-﻿using System.IO;
-using Telegram.Bot;
+﻿using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using TELEGRAM_BOT;
-using static System.Net.WebRequestMethods;
 
 class Bot_Main
 {
