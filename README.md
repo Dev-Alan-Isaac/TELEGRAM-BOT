@@ -1,6 +1,6 @@
-# Project Title
+# Project Telegram BOT
 
-A short description about the project and/or client.
+ Telegram chatbot developed using the Telegram.Bot library for .NET (version 19.0.0). This chatbot is designed to serve as an educational tool, teaching users about the basic functionalities of Telegram bots.
 
 ## Getting Started
 
